@@ -35,7 +35,7 @@ public:
 
     Mat getroad(Mat &image) //major working function attribute of the class
     {
-watershed(image, path); //using watershed segmenter
+        watershed(image, path); //using watershed segmenter
         path.convertTo(path,CV_8U);
         return path;
     }
@@ -44,13 +44,13 @@ watershed(image, path); //using watershed segmenter
 int main( int argc, const char** argv )
 {
     Mat image1 = imread(argv[1],1);
-Mat image;
-resize(image1,image,Size(500,500),0,0,INTER_LINEAR);
+    Mat image;
+    resize(image1,image,Size(500,500),0,0,INTER_LINEAR);
     Mat gray;
     cvtColor(image, gray, CV_BGR2GRAY);
     threshold(gray, gray, 100, 255, THRESH_BINARY); //threasholding the grayscale image
     double t = 0;
-t = (double)cvGetTickCount(); //setting up timer
+    t = (double)cvGetTickCount(); //setting up timer
     Mat Erode;
     erode(gray,Erode,Mat(),Point(2,2),7); //eroding image 7 times.Experimentally best output given by 7 time erode
     Mat Dilate;
@@ -61,16 +61,16 @@ t = (double)cvGetTickCount(); //setting up timer
     findroad road; //creating an object for our class
     road.setpath(path_trace); //preparing the input
     namedWindow("founded road");
-namedWindow("input image");
+    namedWindow("input image");
     Mat road_found = road.getroad(image);
     road_found.convertTo(road_found,CV_8U);
     imshow("founded road", road_found);
-imshow("input image",image);
+    imshow("input image",image);
     t = (double)cvGetTickCount() - t; //time of detection
     printf( "road got detected in = %g ms\n", t/((double)cvGetTickFrequency()*1000.) );
-cout << endl << "cheers" << endl;
-imwrite("ROAD.jpg",image);
-imwrite( "ROAD_DETECTED.jpg",road_found);
+    cout << endl << "cheers" << endl;
+    imwrite("ROAD.jpg",image);
+    imwrite( "ROAD_DETECTED.jpg",road_found);
     waitKey(0);
-return 0;
+    return 0;
 }
