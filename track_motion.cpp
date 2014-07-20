@@ -90,7 +90,7 @@ int main(int argc, char** argv)
 		motion_mask = ret.clone();
 		double timestamp = 1000.0*clock()/CLOCKS_PER_SEC;
 		updateMotionHistory(motion_mask, motion_history, timestamp, MHI_DURATION);			
-		calcMotionGradient(motion_history, mg_mask, mg_orient, 5, 12500.0, 3);
+		calcMotionGradient(motion_history, mg_mask, mg_orient, MIN_TIME_DELTA, MAX_TIME_DELTA, 3);
 		segmentMotion(motion_history, seg_mask, seg_bounds, timestamp, 32);
 		
 		visual_name = values[visual_trackbar];
